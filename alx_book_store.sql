@@ -4,44 +4,44 @@ CREATE DATABASE IF NOT EXISTS alx_book_store;
 -- USE DATABASE
 USE alx_book_store;
 
--- CREATE TABLE authors
-CREATE TABLE IF NOT EXISTS authors (
+-- CREATE TABLE AUTHORS
+CREATE TABLE IF NOT EXISTS Authors (
     author_id INT AUTO_INCREMENT PRIMARY KEY,
-    author_name VARCHAR(255) NOT NULL
+    author_name VARCHAR(215) NOT NULL
 );
 
--- CREATE TABLE books
-CREATE TABLE IF NOT EXISTS books (
+-- CREATE TABLE BOOKS
+CREATE TABLE IF NOT EXISTS Books (
     book_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
+    title VARCHAR(130) NOT NULL,
     author_id INT,
-    price DECIMAL(10,2),
+    price DOUBLE,
     publication_date DATE,
-    FOREIGN KEY (author_id) REFERENCES authors(author_id)
+    FOREIGN KEY (author_id) REFERENCES Authors(author_id)
 );
 
--- CREATE TABLE customers
-CREATE TABLE IF NOT EXISTS customers (
+-- CREATE TABLE CUSTOMERS
+CREATE TABLE IF NOT EXISTS Customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_name VARCHAR(255) NOT NULL,
-    email VARCHAR(255),
-    address VARCHAR(255)
+    customer_name VARCHAR(215) NOT NULL,
+    email VARCHAR(215),
+    address TEXT
 );
 
--- CREATE TABLE orders
-CREATE TABLE IF NOT EXISTS orders (
+-- CREATE TABLE ORDERS
+CREATE TABLE IF NOT EXISTS Orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT,
     order_date DATE,
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
 );
 
--- CREATE TABLE order_details
-CREATE TABLE IF NOT EXISTS order_details (
-    orderdetails_id INT AUTO_INCREMENT PRIMARY KEY,
+-- CREATE TABLE ORDER_DETAILS
+CREATE TABLE IF NOT EXISTS Order_Details (
+    order_detail_id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT,
     book_id INT,
-    quantity INT,
-    FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (book_id) REFERENCES books(book_id)
+    quantity DOUBLE,
+    FOREIGN KEY (order_id) REFERENCES Orders(order_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
 );
