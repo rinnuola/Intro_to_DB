@@ -1,33 +1,30 @@
-#!/usr/bin/python3
 import mysql.connector
-from mysql.connector import Error
 
-def create_database():
-    connection = None
-    try:
-        # Connect to MySQL server
-        connection = mysql.connector.connect(
-            host="localhost",
-            user="root",           # change this to your MySQL username
-            password="yourpassword"  # change this to your MySQL password
-        )
+# IMPORTANT: You must replace 'yourusername' and 'yourpassword' with your actual MySQL credentials.
+# Note: If the database 'alx_book_store' does not exist yet, the connection 
+# might fail because you are specifying it in the connection call.
+# A common practice when creating a database is to connect without the 
+# 'database' parameter, or connect to a default like 'mysql'.
+try:
+    mydb = mysql.connector.connect(
+      host="localhost",
+      user="yourusername", # <--- REPLACE THIS
+      password="yourpassword", # <--- REPLACE THIS
+      database="alx_book_store"
+    )
 
-        # Create a cursor object
-        cursor = connection.cursor()
+    mycursor = mydb.cursor()
 
-        # Create database if it doesn't exist
-        cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
+    # This command attempts to create the database only if it doesn't exist
+    mycursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
+    print("Database 'alx_book_store' created successfully!")
 
-        print("Database 'alx_book_store' created successfully!")
+except mysql.connector.Error as e:
+    # This block catches connection or execution errors, such as wrong credentials
+    print(f"Failed to connect to MySQL or create database! Error: {e}")
 
-    except Error as e:
-        print(f"Error while connecting to MySQL: {e}")
-
-    finally:
-        # Properly close connection
-        if connection is not None and connection.is_connected():
-            cursor.close()
-            connection.close()
-
-if __name__ == "__main__":
-    create_database()
+finally:
+    # Close the cursor and connection to release resources
+    if 'mydb' in locals() and mydb.is_connected():
+        mycursor.close()
+        mydb.close()
