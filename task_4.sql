@@ -1,3 +1,2 @@
--- task_4.sql
-SHOW CREATE TABLE books;
-
+["INFORMATION_SCHEMA.COLUMNS", "COLUMN_NAME", "COLUMN_TYPE", "TABLE_SCHEMA = 'alx_book_store'", "TABLE_NAME = 'Books'"];
+SELECT * FROM Books;

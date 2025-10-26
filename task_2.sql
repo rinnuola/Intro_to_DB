@@ -1,64 +1,31 @@
--- Create and use the database
-CREATE DATABASE IF NOT EXISTS alx_book_store;
-USE alx_book_store;
+import mysql.connector
 
--- =========================
--- Table: authors
--- =========================
-CREATE TABLE IF NOT EXISTS authors (
-    author_id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
-    bio TEXT,
-    birth_date DATE
-);
+# Replace with your actual MySQL credentials
+username = "yourusername"
+password = "yourpassword"
 
--- =========================
--- Table: books
--- =========================
-CREATE TABLE IF NOT EXISTS books (
-    book_id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    author_id INT NOT NULL,
-    genre VARCHAR(100),
-    price DECIMAL(10,2),
-    published_date DATE,
-    stock_quantity INT DEFAULT 0,
-    FOREIGN KEY (author_id) REFERENCES authors(author_id)
-);
+try:
+    # 1️⃣ Connect without specifying a database first
+    mydb = mysql.connector.connect(
+        host="localhost",
+        user=username,
+        password=password
+    )
 
--- =========================
--- Table: customers
--- =========================
-CREATE TABLE IF NOT EXISTS customers (
-    customer_id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
-    email VARCHAR(150) UNIQUE NOT NULL,
-    phone_number VARCHAR(20),
-    address VARCHAR(255)
-);
+    mycursor = mydb.cursor()
 
--- =========================
--- Table: orders
--- =========================
-CREATE TABLE IF NOT EXISTS orders (
-    order_id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT NOT NULL,
-    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    total_amount DECIMAL(10,2),
-    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
-);
+    # 2️⃣ Create the database if it doesn't exist
+    mycursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
+    print("Database 'alx_book_store' created successfully!")
 
--- =========================
--- Table: order_details
--- =========================
-CREATE TABLE IF NOT EXISTS order_details (
-    order_detail_id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL,
-    book_id INT NOT NULL,
-    quantity INT NOT NULL,
-    price DECIMAL(10,2),
-    FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (book_id) REFERENCES books(book_id)
-);
+    # 3️⃣ Optionally, switch to the new database
+    mycursor.execute("USE alx_book_store")
+    print("Using database 'alx_book_store'.")
+
+except mysql.connector.Error as e:
+    print(f"Failed to connect to MySQL or execute command! Error: {e}")
+
+finally:
+    if 'mydb' in locals() and mydb.is_connected():
+        mycursor.close()
+        mydb.close()
