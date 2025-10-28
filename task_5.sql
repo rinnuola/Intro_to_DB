@@ -1,3 +1,9 @@
-["INFORMATION_SCHEMA.COLUMNS", "COLUMN_NAME", "COLUMN_TYPE", "TABLE_SCHEMA = 'aix_book_store'", "TABLE_NAME = 'Books'"];
+-- Retrieve information about the Books table columns
+SELECT * 
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_SCHEMA = 'alx_book_store' 
+AND TABLE_NAME = 'Books';
 
-INSERT INTO customer VALUES (customer_id = 1, customer_name = 'Cole Balddoo', email = 'chaidou@sandtech.com', address = '123 Happiness Ave.');
+-- Insert data into the customer table
+INSERT INTO customer (customer_id, customer_name, email, address)
+VALUES (1, 'Cole Baidoo', 'cbaidoo@sandtech.com', '123 Happiness Ave.');
