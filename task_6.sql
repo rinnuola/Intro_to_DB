@@ -1,11 +1,9 @@
 SELECT * 
 FROM INFORMATION_SCHEMA.COLUMNS 
-WHERE "COLUMN_NAME" = "COLUMN_NAME" 
-AND "COLUMN_TYPE" = "COLUMN_TYPE" 
-AND "TABLE_SCHEMA" = "alx_book_store" 
-AND "TABLE_NAME" = "Customers";
+WHERE TABLE_SCHEMA = 'alx_book_store' 
+AND TABLE_NAME = 'Customers';
 
-INSERT INTO customer VALUES 
-(customer_id = 2, customer_name = 'Blessing Malik', email = 'bmalik@sandtech.com', address = '124 Happiness Ave.'),
-(customer_id = 3, customer_name = 'Obed Ehoneah', email = 'oebed@sandtech.com', address = '125 Happiness Ave.'),
-(customer_id = 4, customer_name = 'Nehemiah Kamolu', email = 'nkamolu@sandtech.com', address = '126 Happiness Ave.');
+INSERT INTO customer (customer_id, customer_name, email, address) VALUES
+(2, 'Blessing Malik', 'bmalik@sandtech.com', '124 Happiness Ave.'),
+(3, 'Obed Ehoneah', 'oebed@sandtech.com', '125 Happiness Ave.'),
+(4, 'Nehemiah Kamolu', 'nkamolu@sandtech.com', '126 Happiness Ave.');
